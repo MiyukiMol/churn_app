@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}
+  Prediction app - Résultats
+{% endblock %}
+{% block content %}
+<div class="container" >
+  <br>
+  <h1>Résultats</h1>
+
+  <table class="table table-striped" style="font-size: 12px">
+    <thead>
+      <tr >
+        <th scope="col" >ID</th>
+        <th scope="col">account<br>length</th>
+        <th scope="col">international<br>plan</th>
+        <th scope="col">number <br>vmail <br> messages</th>
+        <th scope="col">total<br>day<br>minutes</th>
+        <th scope="col">total<br>day<br>calls</th>
+        <th scope="col">total<br>eve<br>minutes</th>
+        <th scope="col">total<br>eve<br>calls</th>
+        <th scope="col">total<br>night<br>minutes</th>
+        <th scope="col">total<br>night<br>calls</th>
+        <th scope="col">total<br>intl<br>minutes</th>
+        <th scope="col">total<br>intl<br>calls</th>
+        <th scope="col">number<br>customer<br>service<br>calls</th>
+        <th scope="col">areas</th>
+        <th scope="col">Prédiction</th>
+        <th scope="col">Date de prédiction</th>
+        <th scope="col">Username </th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for predict in predicts %}
+      <tr>
+        <th scope="row">{{ predict.id }}</th>
+        <td>{{ predict.account_length }}</td>
+        <td>{{ predict.international_plan }}</td>
+        <td>{{ predict.number_vmail_messages }}</td>
+        <td>{{ predict.total_day_minutes }}</td>
+        <td>{{ predict.total_day_calls }}</td>
+        <td>{{ predict.total_eve_minutes }}</td>
+        <td>{{ predict.total_eve_calls }}</td>
+        <td>{{ predict.total_night_minutes }}</td>
+        <td>{{ predict.total_night_calls }}</td>
+        <td>{{ predict.total_intl_minutes }}</td>
+        <td>{{ predict.total_intl_calls }}</td>
+        <td>{{ predict.number_customer_service_calls }}</td>
+        <td>{{ predict.areas }}</td>
+        <td>{{ predict.output }}</td>
+        <td>{{ predict.created_at }}</td>
+        <td>{{ predict.user.username}}</td>
+        <td><a href="/{{predict.id}}/delete" role="button" class="btn btn-danger btn-block btn-large">Supprimer</a></td>
+        <!-- <td><button type="submit" class="btn btn-primary btn-block btn-large">Prédire</button></td> -->
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

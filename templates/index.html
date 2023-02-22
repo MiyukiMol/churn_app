@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+  Prediction app - Prediction
+{% endblock %}
+{% block content %}
+<div class="container">
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %} 
+  <div class="login">
+    <!-- <a href="/logout" role="button" class="btn btn-primary btn-block btn-large">Se déconnecter</a> -->
+    <h2>Prediction</h2>
+    <!-- <p>Enseigner total_day_charge, number_customer_service_calls et total_eve_charge :</p> -->
+    <!-- Inputs for our ML model -->
+    <form action="{{ url_for('predict')}}" method="post">
+      <!-- <label for="total_day_charge">total_day_charge</label> -->
+      account_length : <input type="text" name="account_length" placeholder="account_length" required="required" />  <br>
+      international_plan : <input type="text" name="international_plan" placeholder="international_plan" required="required" />  <br>
+      number_vmail_messages : <input type="text" name="number_vmail_messages" placeholder="number_vmail_messages" required="required" />  <br>
+      total_day_minutes : <input type="text" name="total_day_minutes" placeholder="total_day_minutes" required="required" />  <br>
+      total_day_calls : <input type="text" name="total_day_calls" placeholder="total_day_calls" required="required" />  <br>
+      total_eve_minutes : <input type="text" name="total_eve_minutes" placeholder="total_eve_minutes" required="required" />  <br>
+      total_eve_calls : <input type="text" name="total_eve_calls" placeholder="total_eve_calls" required="required"/>  <br>
+      total_night_minutes : <input type="text" name="total_night_minutes" placeholder="total_night_minutes" required="required" />  <br>
+      total_night_calls : <input type="text" name="total_night_calls" placeholder="total_night_calls" required="required" />  <br>
+      total_intl_minutes : <input type="text" name="total_intl_minutes" placeholder="total_intl_minutes" required="required" />  <br>
+      total_intl_calls : <input type="text" name="total_intl_calls" placeholder="total_intl_calls" required="required" />  <br>
+      number_customer_service_calls : <input type="text" name="number_customer_service_calls" placeholder="number_customer_service_calls" required="required"/>  <br>
+      
+
+      <select name="areas">
+        {% for area in areas %}
+            <option value="{{ area }}">{{ area }}</option>
+        {% endfor %}
+      </select>
+      <br><br>
+      <button type="submit" class="btn btn-primary btn-block btn-large">Prédire</button>
+    </form>   
+    <p>{{ prediction_text }}</p>
+    <br>
+    <br>
+  </div>
+</div>
+{% endblock %}

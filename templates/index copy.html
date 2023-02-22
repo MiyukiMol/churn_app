@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}
+  Prediction app - Prediction
+{% endblock %}
+{% block content %}
+<div class="container">
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %} 
+  <div class="login">
+    <!-- <a href="/logout" role="button" class="btn btn-primary btn-block btn-large">Se déconnecter</a> -->
+    <h2>Prediction</h2>
+    <!-- <p>Enseigner total_day_charge, number_customer_service_calls et total_eve_charge :</p> -->
+    <!-- Inputs for our ML model -->
+    <form action="{{ url_for('predict')}}" method="post">
+
+
+      <table class="table table-borderless" style="font-size: 15px; writing-mode: vertical-lr">
+        <thead>
+          <tr style="writing-mode:horizontal-tb;">
+
+            <th scope="col" style="height:50px;">account_length</th>
+            <th scope="col" style="height:50px;">international_plan</th>
+            <th scope="col" style="height:50px;">number_vmail_messages</th>
+            <th scope="col" style="height:50px;">total_day_minutes</th>
+            <th scope="col" style="height:50px;">total_day_calls</th>
+            <th scope="col" style="height:50px;">total_eve_minutes</th>
+            <th scope="col" style="height:50px;">total_eve_calls</th>
+            <th scope="col" style="height:50px;">total_night_minutes</th>
+            <th scope="col" style="height:50px;">total_night_calls</th>
+            <th scope="col" style="height:50px;">total_intl_minutes</th>
+            <th scope="col" style="height:50px;">total_intl_calls</th>
+            <th scope="col" style="height:50px;">number_customer_service_calls</th>
+            <th scope="col" style="height:50px;">areas</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr style="writing-mode:horizontal-tb;">
+
+            <td><input type="text" name="account_length" placeholder="account_length" required="required" />  <br></td>
+            <td><input type="text" name="international_plan" placeholder="international_plan" required="required" />  <br></td>
+            <td><input type="text" name="number_vmail_messages" placeholder="number_vmail_messages" required="required" />  <br></td>
+            <td><input type="text" name="total_day_minutes" placeholder="total_day_minutes" required="required" />  <br></td>
+            <td><input type="text" name="total_day_calls" placeholder="total_day_calls" required="required" />  <br></td>
+            <td><input type="text" name="total_eve_minutes" placeholder="total_eve_minutes" required="required" />  <br></td>
+            <td><input type="text" name="total_eve_calls" placeholder="total_eve_calls" required="required"/>  <br></td>
+            <td><input type="text" name="total_night_minutes" placeholder="total_night_minutes" required="required" />  <br></td>
+            <td><input type="text" name="total_night_calls" placeholder="total_night_calls" required="required" />  <br></td>
+            <td><input type="text" name="total_intl_minutes" placeholder="total_intl_minutes" required="required" />  <br></td>
+            <td><input type="text" name="total_intl_calls" placeholder="total_intl_calls" required="required" />  <br></td>
+            <td><input type="text" name="number_customer_service_calls" placeholder="number_customer_service_calls" required="required"/>  <br></td>
+            <td><select name="areas">
+              {% for area in areas %}
+                  <option value="{{ area }}">{{ area }}</option>
+              {% endfor %}
+            </select>  <br></td>
+            <td><button type="submit" class="btn btn-primary btn-block btn-large">Prédire</button></td> 
+
+          </tr>
+
+        </tbody>
+      </table>
+
+    </form>  
+    <br><br> 
+
+    {% if output == 0 %}
+      <p style="color:red"><b>{{ prediction_text }}</b></p>
+    {% else %}
+      <p><b>{{ prediction_text }}</b></p>
+    {% endif %}
+    <br>
+    <br>
+  </div>
+</div>
+{% endblock %}

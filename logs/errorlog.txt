@@ -1,0 +1,1 @@
+error - no connexion : pas de base de donnees
